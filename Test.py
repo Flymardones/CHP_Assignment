@@ -201,20 +201,15 @@ def solve(instance):
             return None
     return {g: assign[g] for g in sorted(assign)}
 
-# Change the swe file
-p = "test_cases/test07.swe"
-if not os.path.exists(p):
+# Read file from standard input
+data = sys.stdin.read()
+inst, err = parse_string(data)
+if err is not None:
     print("NO")
 else:
-    with open(p, "r", encoding="utf-8") as f:
-        data = f.read()
-    inst, err = parse_string(data)
-    if err is not None:
+    sol = solve(inst)
+    if sol is None:
         print("NO")
     else:
-        sol = solve(inst)
-        if sol is None:
-            print("NO")
-        else:
-            for g, w in sol.items():
-                print(f"{g}:{w}")
+        for g, w in sol.items():
+            print(f"{g}:{w}")
